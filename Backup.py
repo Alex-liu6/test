@@ -27,3 +27,27 @@ for i in range(1):
     backup.close()                #关闭打开的文件
 
 ssh_client.close()                #结束，断开SSH连接
+
+
+...
+同时需要配合linux的计划任务来实现，在指定的时间执行备份的操作
+
+[root@alex-Ansible ~]# cat /etc/crontab 
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+
+# For details see man 4 crontabs
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+
+
+0 1 * * * root python3 /root/backup.py        //每天凌晨一点自动执行脚本进行备份
+...
