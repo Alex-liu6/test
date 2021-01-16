@@ -29,7 +29,7 @@ for i in range(1):
 ssh_client.close()                #结束，断开SSH连接
 
 
-...
+'''
 同时需要配合linux的计划任务来实现，在指定的时间执行备份的操作
 
 [root@alex-Ansible ~]# cat /etc/crontab 
@@ -50,4 +50,4 @@ MAILTO=root
 
 
 0 1 * * * root python3 /root/backup.py        //每天凌晨一点自动执行脚本进行备份
-...
+'''
