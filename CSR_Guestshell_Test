@@ -10,6 +10,7 @@ CSR_1#guestshell                                                        #进入G
                                                                      Lo6
   VRF_2                            2:2                   ipv4        Lo20
 
+''' 需求：'''
 ========================================================================================================================
 
 '''Test-1'''
@@ -17,42 +18,43 @@ CSR_1#guestshell                                                        #进入G
 from cli import *                                                       #导入内置cli函数
 ipv4_vrf = execute('show vrf ipv4')                                     #定义一个变量ipv4_vrf，执行命令show vrf ipv4
 ipv4_vrf_result = []                                                    #定义一个变量ipv4_vrf_result,等于一个空列表
-for line in ipv4_vrf.split('\n'):                                       #for循环，从ipv_vrf中获取数据并将二进制序列拆分为相同类型的子序列，使用'\n'作为分隔符
+for line in ipv4_vrf.split('\n'):                                       #for循环，从ipv4_vrf中获取数据并将二进制序列拆分为相同类型的子序列，使用'\n'作为分隔符
    ipv4_vrf_result.append(line.split()[0])                              #取第0个参数
 
-print(ipv4_vrf_result)                                                  #打印ipv4——vrf_result变量
+print(ipv4_vrf_result)                                                  #打印ipv4_vrf_result变量
 
-#['Name', 'VRF_1', 'Lo6', 'VRF_2']   
+#['Name', 'VRF_1', 'Lo6', 'VRF_2']                                      #但是此时的打印信息并不是我们想要的
 
 ========================================================================================================================
 
 '''Test-2'''
 '''
-from cli import *  
-ipv4_vrf = execute('show vrf ipv4 | include ipv4')
-ipv4_vrf_result = []
-for line in ipv4_vrf.split('\n'):
-    ipv4_vrf_result.append(line.split()[0])
+from cli import *                                                       #导入内置cli函数
+ipv4_vrf = execute('show vrf ipv4 | include ipv4')                      #定义一个变量ipv4_vrf，执行命令shou vrf ipv4 | include ipv4
+ipv4_vrf_result = []                                                    #定义一个变量ipv4_vrf_result，等于一个空列表
+for line in ipv4_vrf.split('\n'):                                       #for循环，从ipv4_vrf中获取数据并将二进制序列拆分为相同类型的子序列，使用'\n'作为分隔符
+    ipv4_vrf_result.append(line.split()[0])                             #取第0个参数
 
-print(ipv4_vrf_result)      
-#['VRF_1', 'VRF_2']                       #此时便是我们想要获取到的
+print(ipv4_vrf_result)                                                  #打印ipv4_vrf_result变量
+#['VRF_1', 'VRF_2']                                                     #此时便是我们想要获取到的
 '''
 
 '''Test-3'''
 '''
-from cli import *     
-ipv4_vrf = execute('show vrf ipv4 | include ipv4')
-ipv4_vrf_result = []
-for line in ipv4_vrf.split('\n'):
-    ipv4_vrf_result.append(line.split()[0])
-    print(ipv4_vrf_result)      
+from cli import *                                                       #导入内置cli函数
+ipv4_vrf = execute('show vrf ipv4 | include ipv4')                      #定义一个变量ipv4_vrf，执行命令show vrf ipv4 | include ipv4
+ipv4_vrf_result = []                                                    #定义一个变量ipv4_vrf_result，等于一个空列表
+for line in ipv4_vrf.split('\n'):                                       #for循环，从ipv4_vrf中获取数据并将二进制序列拆分为相同类型的子序列，使用'\n'作为分隔符
+    ipv4_vrf_result.append(line.split()[0])                             #取第0个参数
+
+print(ipv4_vrf_result)                                                  #打印ipv4_vrf_result变量
 #['VRF_1', 'VRF_2']
 
-for vrf in ipv4_vrf_result:
-    show_route_ipv4 = execute('show ip route vrf' + ' ' + vrf)
-    print('-'*88)
-    print(show_route_ipv4)
-    print('-'*88)   
+for vrf in ipv4_vrf_result:                                             #for循环，定义变量vrf，并从ipv4_vrf_result中轮询
+    show_route_ipv4 = execute('show ip route vrf' + ' ' + vrf)          #定义变量show_route_ipv4，等于执行命令show ip route vrf vrf实例名字
+    print('-'*88)                                                       #打印88个-
+    print(show_route_ipv4)                                              #打印变量show_route_ipv4
+    print('-'*88)                                                       #打印88个-
 ... 
 ----------------------------------------------------------------------------------------
 Routing Table: VRF_1
@@ -111,27 +113,25 @@ L        20.1.5.1/32 is directly connected, Loopback20
 
 '''Test-4'''
 '''
-from cli import *     #导入cli的所有函数
-ipv4_vrf = execute('show vrf ipv4 | include ipv4')
-ipv4_vrf = execute('show vrf ipv4 | include ipv4')
-ipv4_vrf_result = []
-ipv4_vrf_result = []
-for line in ipv4_vrf.split('\n'):
-    ipv4_vrf_result.append(line.split()[0])
+from cli import *                                                       #导入内置cli函数
+ipv4_vrf = execute('show vrf ipv4 | include ipv4')                      #定义一个变量ipv4_vrf，执行命令show vrf ipv4 | include ipv4
+ipv4_vrf_result = []                                                    #定义一个变量ipv4_vrf_result，等于一个空列表
+for line in ipv4_vrf.split('\n'):                                       #for循环，从ipv4_vrf中获取数据并将二进制序列拆分为相同类型的子序列，使用'\n'作为分隔符
+    ipv4_vrf_result.append(line.split()[0])                             #取第0个参数
 
-print(ipv4_vrf_result)      
+print(ipv4_vrf_result)                                                  #打印ipv4_vrf_result变量      
 #['VRF_1', 'VRF_2']
 
-show_route_ipv4 = 'vrf result'
+show_route_ipv4 = 'vrf result'                                          #定义变量show_route_ipv4 等于 vrf result
 
-for vrf in ipv4_vrf_result:
-    show_route_ipv4 += '\n' + '-'*88
-    show_route_ipv4 += '\n' 
-    show_route_ipv4 += execute('show ip route vrf' + ' ' + vrf)
-    show_route_ipv4 += '\n'
+for vrf in ipv4_vrf_result:                                             #for循环，定义变量vrf，并从ipv4_vrf_result中轮询
+    show_route_ipv4 += '\n' + '-'*88                                    #变量添加值：下一行，并打印88个-
+    show_route_ipv4 += '\n'                                             #变量添加值：下一行
+    show_route_ipv4 += execute('show ip route vrf' + ' ' + vrf)         #定义变量show_route_ipv4，等于执行命令show ip route vrf vrf实例名字
+    show_route_ipv4 += '\n'                                             #变量添加值：下一行
 
-final = show_route_ipv4
-file = open('route.txt','w')
-file.write(final)
-file.close()
+final = show_route_ipv4                                                 #定义变量final等于show_route_ipv4
+file = open('route.txt','w')                                            #打开文件route.txt,赋予写的权限
+file.write(final)                                                       #写入变量final
+file.close()                                                            #关闭
 '''
